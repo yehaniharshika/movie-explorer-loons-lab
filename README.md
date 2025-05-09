@@ -58,3 +58,14 @@
 ```bash
 git clone https://github.com/yehaniharshika/movie-explorer-loons-lab.git
 
+2. **Install dependencies**
+```bash
+npm install
+
+3. **Create .env file**
+```bash
+API_KEY=your_tmdb_api_key
+
+4. **Start the app**
+```bash
+npm run dev
