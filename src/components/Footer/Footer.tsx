@@ -16,18 +16,19 @@ const Footer = () => {
         mt: 10,
       }}
     >
+      {/* Footer Content */}
       <Box
         sx={{
-          display: "flex",  // Using flexbox to align sections on the same row
-          flexWrap: "wrap",  // Allow sections to wrap when on smaller screens
-          justifyContent: "space-between",  // Distribute space evenly between sections
-          gap: 8,  // Add space between each section
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          gap: 8,
         }}
       >
         {/* Left Section */}
         <Box
           sx={{
-            flex: { xs: "1 1 100%", sm: "1 1 33%" },  // Full width on small screens, 1/3 on larger screens
+            flex: { xs: "1 1 100%", sm: "1 1 30%" },
           }}
         >
           <Typography
@@ -35,40 +36,30 @@ const Footer = () => {
             fontWeight="bold"
             fontFamily="'Lilita One', cursive"
           >
-            FlavorNest
+            MovieHunt
           </Typography>
           <Typography mt={2} fontFamily="'Montserrat', sans-serif">
-            Discover, share, and savor delightful recipes from around the world,
-            making every meal a masterpiece! 🍽️
+            Dive into a world of cinema—discover, explore, and stream your
+            favorite movies and series anytime, anywhere! 🎬🍿
           </Typography>
-          <Stack direction="row" spacing={2} mt={2}>
-            <IconButton sx={{ color: "#d9d9d9" }}>
-              <FacebookIcon />
-            </IconButton>
-            <IconButton sx={{ color: "#d9d9d9" }}>
-              <TwitterIcon />
-            </IconButton>
-            <IconButton sx={{ color: "#d9d9d9" }}>
-              <LinkedInIcon />
-            </IconButton>
-          </Stack>
         </Box>
 
         {/* Center Section - Quick Links */}
         <Box
           sx={{
-            flex: { xs: "1 1 100%", sm: "1 1 33%" },  // Full width on small screens, 1/3 on larger screens
+            flex: { xs: "1 1 100%", sm: "1 1 30%" },
           }}
         >
           <Typography
             variant="h6"
             color="white"
             fontFamily="'Montserrat', sans-serif"
+            mb={2}
           >
             QUICK LINKS
           </Typography>
-          <Box mt={2}>
-            {["Home", "About us", "Recipes", "Profile", "Privacy policy"].map(
+          <Box>
+            {["Home", "About", "Movies", "Premium", "Privacy policy"].map(
               (item, index) => (
                 <Typography
                   key={index}
@@ -76,6 +67,10 @@ const Footer = () => {
                     cursor: "pointer",
                     mb: 1,
                     fontFamily: "Montserrat, sans-serif",
+                    "&:hover": {
+                      color: "#ffffff",
+                      textDecoration: "none",
+                    },
                   }}
                 >
                   {item}
@@ -88,24 +83,35 @@ const Footer = () => {
         {/* Right Section - Get in Touch */}
         <Box
           sx={{
-            flex: { xs: "1 1 100%", sm: "1 1 33%" },  // Full width on small screens, 1/3 on larger screens
+            flex: { xs: "1 1 100%", sm: "1 1 30%" },
           }}
         >
           <Typography
             variant="h6"
             color="white"
             fontFamily="'Montserrat', sans-serif"
+            mb={2}
           >
             GET IN TOUCH
           </Typography>
-          <Box mt={2}>
-            <Typography fontFamily="'Montserrat', sans-serif" mb={1}>
-              +9438-345-7890
-            </Typography>
-            <Typography fontFamily="'Montserrat', sans-serif">
-              contact@flavorNest.com
-            </Typography>
-          </Box>
+          <Typography
+            sx={{ mb: 2 }}
+            fontFamily="'Montserrat', sans-serif"
+          >
+            You must watch
+          </Typography>
+          <Typography
+            sx={{ mb: 2 }}
+            fontFamily="'Montserrat', sans-serif"
+          >
+            Recent Release
+          </Typography>
+          <Typography
+            sx={{ mb: 2 }}
+            fontFamily="'Montserrat', sans-serif"
+          >
+            Best Movie Collection
+          </Typography>
         </Box>
       </Box>
 
@@ -118,7 +124,7 @@ const Footer = () => {
         variant="body2"
         fontFamily="'Montserrat', sans-serif"
       >
-        Copyright 2025 © FlavorNest.com - All Right Reserved
+        Copyright 2025 © MovieHunt.com - All Right Reserved
       </Typography>
     </Box>
   );

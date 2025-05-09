@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home.tsx";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import FavoriteMovies from "./pages/FavoriteMovie/FavoriteMovie.tsx";
+import Footer from "./components/Footer/Footer.tsx";
 
 
 
@@ -22,7 +23,7 @@ function App() {
           </Routes>
         </main>
       </div>
-  
+      <Footer />
     </>
   );
   
