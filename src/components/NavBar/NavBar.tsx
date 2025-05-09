@@ -16,7 +16,7 @@ import {
   Menu,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from '@mui/icons-material/Close';
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -106,10 +106,11 @@ const NavBar = () => {
             <Typography
               sx={{
                 fontFamily: "'Lilita One', sans-serif",
-                fontSize: "20px",
+                fontSize: "21px",
                 fontWeight: 400,
                 color: "white",
-                textDecoration:"none"
+                textDecoration: "none",
+                "&:hover": { color: "red" },
               }}
             >
               MovieHunt
@@ -128,7 +129,7 @@ const NavBar = () => {
                     fontFamily: "Montserrat, sans-serif",
                     fontWeight: 600,
                     cursor: "pointer",
-                    "&:hover": { color: "#008080" },
+                    "&:hover": { color: "red" },
                   }}
                 >
                   {item.label}
@@ -163,15 +164,7 @@ const NavBar = () => {
                   open={Boolean(anchorEl)}
                   onClose={() => setAnchorEl(null)}
                 >
-                  <MenuItem
-                    onClick={() => {
-                      navigate("/my-recipes");
-                      setAnchorEl(null);
-                    }}
-                  >
-                    My Recipes
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  <MenuItem onClick={handleLogout} style={{fontFamily: "Montserrat, sans-serif",}}>Logout</MenuItem>
                 </Menu>
               </>
             ) : (
@@ -184,6 +177,7 @@ const NavBar = () => {
                   fontWeight: 500,
                   fontFamily: "Montserrat, sans-serif",
                   padding: "6px 12px",
+                  "&:hover": { borderColor: "red", color: "red" },
                 }}
                 onClick={() => setOpenLoginPopup(true)}
               >
@@ -225,6 +219,7 @@ const NavBar = () => {
             paddingBottom: 2,
             borderTop: "1px solid #2C2C2E",
             width: "100%",
+            fontFamily: "Montserrat, sans-serif",
           },
         }}
       >
@@ -238,14 +233,13 @@ const NavBar = () => {
                 fontFamily: "Montserrat, sans-serif",
                 fontWeight: "bold",
                 "&:hover": {
-                  color: "#008080",
+                  color: "red",
                 },
               }}
             >
               <ListItemText primary={item.label} />
             </ListItemButton>
           ))}
-
         </List>
       </Drawer>
 

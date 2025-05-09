@@ -19,17 +19,12 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
   setShowLogin,
   setIsLoggedIn,
 }) => {
-  const [currState, setCurrState] = useState("Login");
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [currState, setCurrState] = useState<"Login" | "Sign Up">("Login");
+  const [data, setData] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState("");
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name, value } = event.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
@@ -47,7 +42,6 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
     }
 
     if (currState === "Sign Up") {
-      // Save to localStorage
       localStorage.setItem("user", JSON.stringify(data));
       setMessage("Account created successfully!");
       setTimeout(() => {
@@ -56,7 +50,6 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
         setData({ name: "", email: "", password: "" });
       }, 1000);
     } else {
-      // Login check
       const savedUser = JSON.parse(localStorage.getItem("user") || "{}");
       if (
         data.email === savedUser.email &&
@@ -64,23 +57,16 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
       ) {
         setMessage("Login successful!");
         setIsLoggedIn(true);
-
-        // SweetAlert after login
         setTimeout(() => {
           setShowLogin(false);
           Swal.fire({
             title: "✅ Login Successful!",
             icon: "success",
             confirmButtonText: "OK",
-            background: "white",
-            color: "black",
-            confirmButtonColor: "#D2691E",
+            background: "black",
+            color: "white",
+            confirmButtonColor: "red",
             width: "450px",
-            customClass: {
-              title: "swal-title",
-              popup: "swal-popup",
-              confirmButton: "swal-button",
-            },
           });
         }, 1000);
       } else {
@@ -97,36 +83,33 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         zIndex: 2000,
-        fontFamily: "Montserrat", // Ensures the font is applied throughout the popup
+        fontFamily: "Montserrat",
       }}
     >
       <Box
         sx={{
-          backgroundColor: "#f6e1d2",
+          backgroundColor: "black",
           padding: 3,
           borderRadius: 2,
           width: 400,
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          border: 3,
-          borderColor: "gray",
-          fontFamily: "Montserrat, sans-serif",
+          border: 2,
+          borderColor: "red",
+          color: "white",
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography
-            variant="h5"
-            sx={{ fontFamily: "Montserrat, sans-serif" }}
-          >
+          <Typography variant="h5" sx={{ fontFamily: "Montserrat" }}>
             {currState}
           </Typography>
-          <IconButton onClick={() => setShowLogin(false)}>
+          <IconButton onClick={() => setShowLogin(false)} sx={{ color: "white" }}>
             <CloseIcon />
           </IconButton>
         </Box>
@@ -134,12 +117,15 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
         {message && (
           <Alert
             severity={
-              message === "Login successful!" ||
-              message === "Account created successfully!"
+              message.includes("successfully") || message.includes("successful")
                 ? "success"
                 : "error"
             }
-            sx={{ fontFamily: "Montserrat" }}
+            sx={{
+              fontFamily: "Montserrat",
+              backgroundColor: message.includes("success") ? "#2e7d32" : "#c62828",
+              color: "white",
+            }}
           >
             {message}
           </Alert>
@@ -150,23 +136,23 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
             <TextField
               name="name"
               placeholder="Your Name"
-              className="field"
               onChange={onChangeHandler}
               value={data.name}
               fullWidth
               sx={textFieldStyles}
+              InputProps={{ style: { color: "white" } }}
             />
           )}
 
           <TextField
             name="email"
             placeholder="Your Email"
-            className="field"
             onChange={onChangeHandler}
             value={data.email}
             type="email"
             fullWidth
             sx={textFieldStyles}
+            InputProps={{ style: { color: "white" } }}
           />
 
           <TextField
@@ -174,10 +160,10 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
             placeholder="Password"
             onChange={onChangeHandler}
             value={data.password}
-            className="field"
             type="password"
             fullWidth
             sx={textFieldStyles}
+            InputProps={{ style: { color: "white" } }}
           />
 
           <Button
@@ -186,53 +172,52 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
             fullWidth
             sx={{
               fontFamily: "Montserrat, sans-serif",
-              backgroundColor: "#7e3f12",
+              backgroundColor: "red",
+              color: "white",
               marginTop: 1,
-              "&:hover": { backgroundColor: "#5d2d0a" },
+              "&:hover": { backgroundColor: "#a60000" },
             }}
           >
             {currState === "Sign Up" ? "Create account" : "Login"}
           </Button>
 
-          {currState === "Login" ? (
-            <Typography
-              sx={{ fontFamily: "Montserrat, sans-serif", marginTop: "10px" }}
-            >
-              Create a new account?{" "}
-              <span
-                onClick={() => {
-                  setCurrState("Sign Up");
-                  setMessage("");
-                }}
-                style={{
-                  color: "#FF5722",
-                  fontWeight: "800",
-                  cursor: "pointer",
-                }}
-              >
-                Click here
-              </span>
-            </Typography>
-          ) : (
-            <Typography
-              sx={{ fontFamily: "Montserrat, sans-serif", marginTop: "10px" }}
-            >
-              Already have an account?{" "}
-              <span
-                onClick={() => {
-                  setCurrState("Login");
-                  setMessage("");
-                }}
-                style={{
-                  color: "#FF5722",
-                  cursor: "pointer",
-                  fontWeight: "800",
-                }}
-              >
-                Login here
-              </span>
-            </Typography>
-          )}
+          <Typography sx={{ fontFamily: "Montserrat", marginTop: 1 }}>
+            {currState === "Login" ? (
+              <>
+                Create a new account?{" "}
+                <span
+                  onClick={() => {
+                    setCurrState("Sign Up");
+                    setMessage("");
+                  }}
+                  style={{
+                    color: "red",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                  }}
+                >
+                  Click here
+                </span>
+              </>
+            ) : (
+              <>
+                Already have an account?{" "}
+                <span
+                  onClick={() => {
+                    setCurrState("Login");
+                    setMessage("");
+                  }}
+                  style={{
+                    color: "red",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                  }}
+                >
+                  Login here
+                </span>
+              </>
+            )}
+          </Typography>
         </form>
       </Box>
     </Box>
@@ -241,7 +226,6 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
 
 const textFieldStyles = {
   marginBottom: 2,
-  fontSize: "13px",
   fontFamily: "Montserrat, sans-serif",
   "& .MuiOutlinedInput-root": {
     fontFamily: "Montserrat, sans-serif",
@@ -249,15 +233,18 @@ const textFieldStyles = {
       borderColor: "#ccc",
     },
     "&:hover fieldset": {
-      borderColor: "#FF5722",
+      borderColor: "red",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#FF5722",
-      borderWidth: "3px",
+      borderColor: "red",
+      borderWidth: "2px",
     },
   },
+  input: {
+    color: "white",
+  },
   "& .MuiInputBase-input::placeholder": {
-    fontFamily: "Montserrat, sans-serif",
+    color: "#aaa",
   },
 };
 

@@ -75,9 +75,9 @@ const Header = () => {
               variant="h2"
               sx={{
                 fontFamily: "'Lilita One', sans-serif",
-                textShadow: "2px 2px 3px #10B981",
+                textShadow: "2px 2px 3px rgb(185, 16, 16)",
                 fontSize: { xs: "2rem", sm: "3rem", md: "4rem" }, // Responsive font size
-                fontWeight: "bold",
+                fontWeight: "200",
               }}
             >
               Welcome to Our Movie Showcase
@@ -99,9 +99,14 @@ const Header = () => {
               variant="h5"
               sx={{
                 mt: 4,
-                fontFamily: "Montserrat, sans-serif",
+               
                 fontWeight: 600,
                 fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" }, // Responsive font size
+
+                fontFamily: "'Lilita One', sans-serif",
+                textShadow: "2px 2px 3px rgb(185, 16, 16)",
+                
+               
               }}
             >
               {sliderContent[current].text}

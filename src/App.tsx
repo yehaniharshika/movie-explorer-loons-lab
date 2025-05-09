@@ -6,17 +6,12 @@ import FavoriteMovies from "./pages/FavoriteMovie/FavoriteMovie.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import MovieDetails from "./components/MovieList/MovieDetails.tsx";
 
-
-
-
 function App() {
-  
-
   return (
     <>
       <div className="app">
-        <NavBar/>
-  
+        <NavBar />
+
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -28,7 +23,6 @@ function App() {
       <Footer />
     </>
   );
-  
 }
 
 export default App;
