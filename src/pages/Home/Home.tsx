@@ -15,6 +15,12 @@ interface Movie {
 
 const Home = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [query, setQuery] = useState<string>("");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Optional: scroll to movie section or trigger logic
+  };
 
   const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
   const API_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
@@ -36,8 +42,13 @@ const Home = () => {
     <div>
       <Header />
 
-      <TrendingMovies movies={movies} /> {/* Pass movies here */}
-      <TopRatedMovies/>
+      <TrendingMovies
+        movies={movies}
+        query={query}
+        setQuery={setQuery}
+        handleSubmit={handleSubmit}
+      />
+      <TopRatedMovies />
     </div>
   );
 };

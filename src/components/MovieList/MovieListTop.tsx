@@ -9,6 +9,7 @@ interface Movie {
   title: string;
   poster_path: string;
   vote_average: number;
+  release_year: string;
 }
 const MovieListTop:  React.FC<{ movies: Movie[] }>  = ({movies}) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);

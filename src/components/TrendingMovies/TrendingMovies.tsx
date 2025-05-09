@@ -1,6 +1,7 @@
-import { Box, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 import MovieList from "../MovieList/MovieList";
+import { useState } from "react";
+import SearchBar from "../SearchBar/SearchBar";
 
 interface Movie {
   id: number;
@@ -9,31 +10,60 @@ interface Movie {
   vote_average: number;
 }
 
-const TrendingMovies: React.FC<{ movies: Movie[] }> = ({ movies }) => {
+interface TrendingMoviesProps {
+  movies: Movie[];
+}
+
+const TrendingMovies: React.FC<TrendingMoviesProps> = ({ movies }) => {
+  const [query, setQuery] = useState("");
+
+  const filteredMovies =
+    query.trim() === ""
+      ? movies
+      : movies.filter((movie) =>
+          movie.title.toLowerCase().includes(query.toLowerCase())
+        );
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // prevent page reload
+    // Optional: you could trigger more logic here if needed
+  };
+
   return (
     <Box
       sx={{
         padding: 2,
         display: "flex",
         justifyContent: "center",
-        overflowX: "hidden", // Hide horizontal overflow
-        marginTop:"10px"
+        overflowX: "hidden",
+        marginTop: "10px",
       }}
     >
       <Box
         sx={{
           width: "100%",
-          maxWidth: "1700px", // Max width for content
-          bgcolor: "",
+          maxWidth: "1700px",
           p: 2,
         }}
       >
-        <Typography variant="h4" component="h2" sx={{ mb: 3,fontFamily: "Montserrat, sans-serif",fontWeight: "900" ,color:"white"}}>
+        {/* SearchBar gets query, setQuery, handleSubmit */}
+        <SearchBar query={query} setQuery={setQuery} handleSubmit={handleSubmit} />
+
+        <Typography
+          variant="h4"
+          component="h2"
+          sx={{
+            mb: 3,
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: "900",
+            color: "white",
+          }}
+        >
           Trending Movies
         </Typography>
 
         <Box mt={3}>
-          <MovieList movies={movies} />
+          <MovieList movies={filteredMovies} />
         </Box>
       </Box>
     </Box>

@@ -39,18 +39,6 @@ const TopRatedMovies: React.FC = () => {
       });
   }, []);
 
-  // Filter the recipes based on the query
-  const filteredMovies = movies.filter((movie) => {
-    const lowerQuery = query.toLowerCase();
-    const titleMatch = movie.title.toLowerCase().includes(lowerQuery);
-
-    return titleMatch;
-  });
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Searching for:", query);
-  };
 
   return (
     <Box
@@ -69,11 +57,6 @@ const TopRatedMovies: React.FC = () => {
           p: 2,
         }}
       >
-        <SearchBar
-          query={query}
-          setQuery={setQuery}
-          handleSubmit={handleSubmit}
-        />
         <Typography
           variant="h4"
           component="h2"
