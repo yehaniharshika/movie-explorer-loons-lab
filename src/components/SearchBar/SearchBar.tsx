@@ -27,6 +27,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
         mb: 6,
         gap: 2,
         px: 2,
+        backgroundColor: "#121212", // dark background for the search bar container
+        borderRadius: 2,
+        py: 2,
       }}
     >
       <TextField
@@ -38,16 +41,22 @@ const SearchBar: React.FC<SearchBarProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon color="action" />
+              <SearchIcon sx={{ color: "#ffffffcc" }} />
             </InputAdornment>
           ),
+          style: {
+            color: "#ffffff", // text color
+          },
         }}
         sx={{
-          fontFamily: "Montserrat, sans-serif",
+          input: {
+            color: "#ffffff",
+          },
           "& .MuiOutlinedInput-root": {
             fontFamily: "Montserrat, sans-serif",
+            backgroundColor: "#1e1e1e", // input background
             "& fieldset": {
-              borderColor: "#ccc", // default
+              borderColor: "#555", // default border
             },
             "&:hover fieldset": {
               borderColor: "#FF5722",
@@ -58,6 +67,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             },
           },
           "& .MuiInputBase-input::placeholder": {
+            color: "#bbbbbb",
             fontFamily: "Montserrat, sans-serif",
           },
         }}
@@ -73,6 +83,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
           textTransform: "none",
           fontWeight: 600,
           fontFamily: "Montserrat, sans-serif",
+          backgroundColor: "#FF5722",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "#e64a19",
+          },
         }}
       >
         Search

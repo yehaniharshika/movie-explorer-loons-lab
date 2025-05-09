@@ -3,6 +3,7 @@ import MovieList from "../MovieList/MovieList";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MovieListTop from "../MovieList/MovieListTop";
+import SearchBar from "../SearchBar/SearchBar";
 
 interface Movie {
   id: number;
@@ -16,6 +17,7 @@ const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
 
 const TopRatedMovies: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     axios
@@ -26,7 +28,9 @@ const TopRatedMovies: React.FC = () => {
           title: movie.title,
           poster_path: movie.poster_path,
           vote_average: movie.vote_average,
-          release_year: movie.release_date ? movie.release_date.slice(0, 4) : "N/A",
+          release_year: movie.release_date
+            ? movie.release_date.slice(0, 4)
+            : "N/A",
         }));
         setMovies(mappedMovies);
       })
@@ -34,6 +38,19 @@ const TopRatedMovies: React.FC = () => {
         console.error("Error fetching top rated movies", err);
       });
   }, []);
+
+  // Filter the recipes based on the query
+  const filteredMovies = movies.filter((movie) => {
+    const lowerQuery = query.toLowerCase();
+    const titleMatch = movie.title.toLowerCase().includes(lowerQuery);
+
+    return titleMatch;
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Searching for:", query);
+  };
 
   return (
     <Box
@@ -52,6 +69,11 @@ const TopRatedMovies: React.FC = () => {
           p: 2,
         }}
       >
+        <SearchBar
+          query={query}
+          setQuery={setQuery}
+          handleSubmit={handleSubmit}
+        />
         <Typography
           variant="h4"
           component="h2"
