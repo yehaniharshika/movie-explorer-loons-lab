@@ -144,7 +144,7 @@ const NavBar = () => {
             <IconButton
               color="inherit"
               component={Link}
-              to="/favorite-recipes"
+              to="/favorite-movies"
               sx={{ color: "#fff" }}
             >
               <FavoriteIcon />
