@@ -49,7 +49,7 @@ const About = () => {
         Dive into a world of cinema with our feature-rich platform. Whether
         you're a casual viewer or a passionate film buff, discover, rate, and
         enjoy thousands of movies across all genres. Experience seamless movie
-        searching, personalized watchlists, and insightful ratings from fellow
+        searching, personalized watch lists, and insightful ratings from fellow
         fans — all in one place!
       </Typography>
 
