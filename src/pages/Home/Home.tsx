@@ -1,17 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import About from "../../components/About/About";
-import {category ,movieType} from "../../api/tmdbApi";
-import * as Config from "../"
+
+import TrendingMovies from "../../components/TrendingMovies/TrendingMovies";
+import axios from "axios";
+
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string;
+  overview: string;
+  vote_average: number;
+}
 
 const Home = () => {
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
 
-  
+  const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
+  const API_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
+
+  const fetchMovies = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setMovies(response.data.results);
+    } catch (error) {
+      console.error("Failed to fetch movies", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
   return (
     <div>
-      <Header/>
-      <About/>
+      <Header />
+
+      <TrendingMovies movies={movies} /> {/* Pass movies here */}
     </div>
   );
 };

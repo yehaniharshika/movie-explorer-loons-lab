@@ -1,27 +1,14 @@
+// src/api/axiosClient.ts
 import axios from "axios";
-import queryString from "query-string";
-
-import apiConfig from "../api/apiConfig";
 
 const axiosClient = axios.create({
-  baseURL: apiConfig.baseURL,
-  headers: {
-    "Content-Type": "application.json",
+  baseURL: "https://api.themoviedb.org/3",
+  params: {
+    api_key: "b855d823ec03963ae765a4c4fce6e7d8", // replace with your actual TMDB API key
   },
-  paramsSerializer: (params) =>
-    queryString.stringify({ ...params, api_key: apiConfig.apiKey }),
 });
 
-axiosClient.interceptors.response.use(
-  (response) => {
-    if (response && response.data) {
-      return response.data;
-    }
-    return response;
-  },
-  (error) => {
-    throw error;
-  }
-);
+// ✅ Add interceptor to return only the data part of the response
+axiosClient.interceptors.response.use((response) => response.data);
 
 export default axiosClient;

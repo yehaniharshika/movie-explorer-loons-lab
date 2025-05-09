@@ -1,33 +1,42 @@
-import React from "react";
-import { Box, Container, Typography, Button } from "@mui/material";
-import { category } from "../../api/tmdbApi";
-import Config from "../../constants/config";
+import { Box, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import MovieList from "../movie-list/MovieList";
+import MovieList from "../MovieList/MovieList";
 
-const TrendingMovies: React.FC = () => {
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string;
+  vote_average: number;
+}
+
+const TrendingMovies: React.FC<{ movies: Movie[] }> = ({ movies }) => {
   return (
-    <Container>
-      <Box mb={3} p={2} boxShadow={3} borderRadius={2} bgcolor="#f5f5f5">
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="h4" component="h2">
-            Trending Movies
-          </Typography>
-          <Button
-            component={Link}
-            to={`/${Config}/movie`}
-            variant="outlined"
-            size="small"
-          >
-            View More
-          </Button>
-        </Box>
+    <Box
+      sx={{
+        padding: 2,
+        display: "flex",
+        justifyContent: "center",
+        overflowX: "hidden", // Hide horizontal overflow
+        marginTop:"10px"
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: "1700px", // Max width for content
+          bgcolor: "",
+          p: 2,
+        }}
+      >
+        <Typography variant="h4" component="h2" sx={{ mb: 3,fontFamily: "Montserrat, sans-serif",fontWeight: "900" ,color:"white"}}>
+          Trending Movies
+        </Typography>
 
         <Box mt={3}>
-          <MovieList category={category.movie} />
+          <MovieList movies={movies} />
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
