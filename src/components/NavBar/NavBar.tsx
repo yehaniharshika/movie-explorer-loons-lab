@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   AppBar,
   Box,
@@ -14,7 +14,6 @@ import {
   Button,
   MenuItem,
   Menu,
-  Divider,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";

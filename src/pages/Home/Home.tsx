@@ -44,9 +44,7 @@ const Home = () => {
 
       <TrendingMovies
         movies={movies}
-        query={query}
-        setQuery={setQuery}
-        handleSubmit={handleSubmit}
+
       />
       <TopRatedMovies />
     </div>

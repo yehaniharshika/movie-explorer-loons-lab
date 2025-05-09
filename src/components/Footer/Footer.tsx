@@ -1,7 +1,4 @@
-import { Box, Typography, Stack, IconButton, Divider } from "@mui/material";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { Box, Typography,Divider } from "@mui/material";
 
 const Footer = () => {
   return (

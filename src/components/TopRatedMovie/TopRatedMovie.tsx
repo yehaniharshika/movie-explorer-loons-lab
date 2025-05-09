@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import MovieList from "../MovieList/MovieList";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MovieListTop from "../MovieList/MovieListTop";
-import SearchBar from "../SearchBar/SearchBar";
+
 
 interface Movie {
   id: number;
@@ -17,7 +16,6 @@ const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
 
 const TopRatedMovies: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [query, setQuery] = useState("");
 
   useEffect(() => {
     axios

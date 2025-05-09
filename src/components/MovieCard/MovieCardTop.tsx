@@ -7,7 +7,7 @@ import {
     IconButton,
     CardActionArea,
   } from "@mui/material";
-  import { Link } from "react-router-dom";
+  import { Link, useNavigate } from "react-router-dom";
   import YouTubeIcon from "@mui/icons-material/YouTube";
   import { useState, useEffect } from "react";
   import axios from "axios";
@@ -56,6 +56,12 @@ import {
       }
       setIsFavorite(!isFavorite);
     };
+
+    const navigate = useNavigate();
+    const handleCardClick = () => {
+        // Navigate to the movie details page with the movie's ID
+        navigate(`/movie-details/${movie.id}`);
+      };
   
     return (
       <Card
@@ -65,9 +71,11 @@ import {
           margin: "auto",
           height: "100%",
           position: "relative",
+          cursor:"pointer"
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onClick={handleCardClick}
       >
         <Box sx={{ position: "relative" }}>
           {/* Move Favorite IconButton OUTSIDE of CardActionArea to avoid nesting <button> */}
@@ -121,6 +129,7 @@ import {
                 target="_blank"
               >
                 <YouTubeIcon sx={{ fontSize: 60, color: "#FF0000" }} />
+                
               </IconButton>
             </Box>
           )}
