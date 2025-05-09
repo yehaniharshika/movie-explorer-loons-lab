@@ -107,10 +107,11 @@ const NavBar = () => {
           >
             <Typography
               sx={{
-                fontFamily: "Montserrat, sans-serif",
+                fontFamily: "'Lilita One', sans-serif",
                 fontSize: "20px",
-                fontWeight: 700,
+                fontWeight: 400,
                 color: "white",
+                textDecoration:"none"
               }}
             >
               MovieHunt

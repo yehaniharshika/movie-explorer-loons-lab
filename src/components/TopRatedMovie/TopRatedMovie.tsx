@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import MovieList from "../MovieList/MovieList";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import MovieListTop from "../MovieList/MovieListTop";
 
 interface Movie {
   id: number;
@@ -65,7 +66,7 @@ const TopRatedMovies: React.FC = () => {
         </Typography>
 
         <Box mt={3}>
-          <MovieList movies={movies} />
+          <MovieListTop movies={movies} />
         </Box>
       </Box>
     </Box>
