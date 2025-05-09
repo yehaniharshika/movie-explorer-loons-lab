@@ -36,6 +36,15 @@ const NavBar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#000" : "#fff";
+    document.body.style.color = darkMode ? "#fff" : "#000";
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+  };
+
   const navItems = [
     { id: "home", label: "Home" },
     { id: "movies", label: "Movies" },
@@ -72,9 +81,6 @@ const NavBar = () => {
     }
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -137,7 +143,8 @@ const NavBar = () => {
               ))}
 
             {/* These icons always visible even on tablets */}
-            <IconButton onClick={toggleDarkMode} sx={{ color: "#fff" }}>
+            <IconButton onClick={toggleDarkMode}
+              sx={{ color: darkMode ? "#000" : "#fff" }}>
               <BedtimeIcon />
             </IconButton>
 

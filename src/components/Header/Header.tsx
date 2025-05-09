@@ -37,7 +37,7 @@ const Header = () => {
   }, []);
 
   return (
-    <Box width="100%" height="100vh" overflow="hidden">
+    <Box width="100%" height="100vh" overflow="hidden" id="home">
       {/* Background Image */}
       <AnimatePresence mode="wait">
         <motion.img
@@ -99,14 +99,12 @@ const Header = () => {
               variant="h5"
               sx={{
                 mt: 4,
-               
-                fontWeight: 600,
-                fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" }, // Responsive font size
 
-                fontFamily: "'Lilita One', sans-serif",
-                textShadow: "2px 2px 3px rgb(185, 16, 16)",
-                
-               
+                fontWeight: 900,
+                fontSize: { xs: "1.8rem", sm: "2rem", md: "2.75rem" }, // Responsive font size
+                color: "#c23616",
+                fontFamily: "Montserrat, sans-serif",
+                textShadow: "2px 2px 3px rgb(247, 243, 243)",
               }}
             >
               {sliderContent[current].text}

@@ -1,14 +1,14 @@
 import { Container, Typography, Box, Chip, Button } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Ensure useNavigate is imported
+import { useParams, useNavigate } from "react-router-dom";
 
 const MovieDetails = () => {
-  const { id } = useParams(); // Get the movie ID from URL params
-  const navigate = useNavigate(); // Use useNavigate for navigation
+  const { id } = useParams(); 
+  const navigate = useNavigate();
   const [movie, setMovie] = useState<any>(null);
-  const [trailer, setTrailer] = useState<any>(null); // State to store trailer
-  const [cast, setCast] = useState<any[]>([]); // State to store cast
+  const [trailer, setTrailer] = useState<any>(null);
+  const [cast, setCast] = useState<any[]>([]);
   const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
 
   useEffect(() => {
@@ -18,23 +18,24 @@ const MovieDetails = () => {
         const movieResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
         );
-        setMovie(movieResponse.data); // Set the movie data to state
+        setMovie(movieResponse.data);
 
         // Fetch movie credits (cast)
         const creditsResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`
         );
-        setCast(creditsResponse.data.cast); // Set the cast data to state
+        setCast(creditsResponse.data.cast); 
 
         // Fetch the videos (trailers)
         const videoResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
         );
+
         // Find the trailer if available
         const trailerData = videoResponse.data.results.find(
           (video: any) => video.type === "Trailer"
         );
-        setTrailer(trailerData); // Store trailer data
+        setTrailer(trailerData); 
       } catch (error) {
         console.error("Failed to fetch movie details:", error);
       }

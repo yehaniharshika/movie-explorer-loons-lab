@@ -38,6 +38,7 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({ movies }) => {
         overflowX: "hidden",
         marginTop: "10px",
       }}
+      id="movies"
     >
       <Box
         sx={{
