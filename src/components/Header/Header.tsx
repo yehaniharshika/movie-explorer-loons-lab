@@ -74,10 +74,10 @@ const Header = () => {
             <Typography
               variant="h2"
               sx={{
-                fontFamily: "'Lilita One', sans-serif",
+                fontFamily: "Montserrat, sans-serif",
                 textShadow: "2px 2px 3px rgb(185, 16, 16)",
-                fontSize: { xs: "2rem", sm: "3rem", md: "4rem" }, // Responsive font size
-                fontWeight: "200",
+                fontSize: { xs: "2.1rem", sm: "3rem", md: "2.7rem" }, // Responsive font size
+                fontWeight: "800",
               }}
             >
               Welcome to Our Movie Showcase
@@ -99,11 +99,10 @@ const Header = () => {
               variant="h5"
               sx={{
                 mt: 4,
-
-                fontWeight: 900,
-                fontSize: { xs: "1.8rem", sm: "2rem", md: "2.75rem" }, // Responsive font size
+                fontWeight: 400,
+                fontSize: { xs: "1.9rem", sm: "2.1rem", md: "3rem" }, // Responsive font size
                 color: "#c23616",
-                fontFamily: "Montserrat, sans-serif",
+                fontFamily: "'Lilita One', sans-serif",
                 textShadow: "2px 2px 3px rgb(247, 243, 243)",
               }}
             >

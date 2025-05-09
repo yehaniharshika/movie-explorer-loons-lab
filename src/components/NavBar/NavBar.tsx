@@ -16,7 +16,7 @@ import {
   Menu,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -81,7 +81,6 @@ const NavBar = () => {
     }
   };
 
-
   const handleLogout = () => {
     setIsLoggedIn(false);
     navigate("/");
@@ -109,18 +108,19 @@ const NavBar = () => {
             }}
             sx={{ display: "flex", alignItems: "center" }}
           >
-            <Typography
-              sx={{
-                fontFamily: "'Lilita One', sans-serif",
-                fontSize: "21px",
-                fontWeight: 400,
-                color: "white",
-                textDecoration: "none",
-                "&:hover": { color: "red" },
-              }}
-            >
-              MovieHunt
-            </Typography>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Typography
+                sx={{
+                  fontFamily: "'Lilita One', sans-serif",
+                  fontSize: "21px",
+                  fontWeight: 400,
+                  color: "white",
+                  "&:hover": { color: "red" },
+                }}
+              >
+                MovieHunt
+              </Typography>
+            </Link>
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -143,8 +143,10 @@ const NavBar = () => {
               ))}
 
             {/* These icons always visible even on tablets */}
-            <IconButton onClick={toggleDarkMode}
-              sx={{ color: darkMode ? "#000" : "#fff" }}>
+            <IconButton
+              onClick={toggleDarkMode}
+              sx={{ color: darkMode ? "#000" : "#fff" }}
+            >
               <BedtimeIcon />
             </IconButton>
 
@@ -171,7 +173,12 @@ const NavBar = () => {
                   open={Boolean(anchorEl)}
                   onClose={() => setAnchorEl(null)}
                 >
-                  <MenuItem onClick={handleLogout} style={{fontFamily: "Montserrat, sans-serif",}}>Logout</MenuItem>
+                  <MenuItem
+                    onClick={handleLogout}
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Logout
+                  </MenuItem>
                 </Menu>
               </>
             ) : (
