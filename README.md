@@ -54,18 +54,17 @@
 
 ## ⚙️ Installation & Setup Instructions
 
-1. **Clone the repository**
-```bash
+### 1️⃣ Clone the Repository
+```sh
 git clone https://github.com/yehaniharshika/movie-explorer-loons-lab.git
+```
 
-2. **Install dependencies**
-```bash
+### 2️⃣ Install Dependencies
+```sh
 npm install
+```
 
-3. **Create .env file**
-```bash
-API_KEY=your_tmdb_api_key
-
-4. **Start the app**
-```bash
+### 3️⃣ Run the project
+```sh
 npm run dev
+```

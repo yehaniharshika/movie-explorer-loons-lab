@@ -1,8 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MovieListTop from "../MovieList/MovieListTop";
-
 
 interface Movie {
   id: number;
@@ -16,6 +15,7 @@ const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
 
 const TopRatedMovies: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [visibleMoviesCount, setVisibleMoviesCount] = useState(4); // Initially show only 2 movies
 
   useEffect(() => {
     axios
@@ -37,6 +37,10 @@ const TopRatedMovies: React.FC = () => {
       });
   }, []);
 
+  // Handle loading more movies
+  const handleLoadMore = () => {
+    setVisibleMoviesCount((prevCount) => prevCount + 5); // Increase the number of visible movies by 2
+  };
 
   return (
     <Box
@@ -69,7 +73,32 @@ const TopRatedMovies: React.FC = () => {
         </Typography>
 
         <Box mt={3}>
-          <MovieListTop movies={movies} />
+          {/* Display the movies based on the visibleMoviesCount */}
+          <MovieListTop movies={movies.slice(0, visibleMoviesCount)} />
+        </Box>
+
+        {/* Load More Button */}
+        <Box sx={{ textAlign: "center", mt: 3 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleLoadMore}
+            sx={{
+              backgroundColor: "red",
+              borderRadius: "18px",
+              border: "2px solid red",
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: "700",
+              fontSize: "12px",
+              boxShadow: "0 4px 6px rgba(86, 21, 21, 0.91)",
+              "&:hover": {
+                backgroundColor: "darkred", // Dark red on hover
+                boxShadow: "0 6px 8px rgba(0, 0, 0, 0.3)", // Slightly darker shadow on hover
+              },
+            }}
+          >
+            Load More
+          </Button>
         </Box>
       </Box>
     </Box>

@@ -100,13 +100,11 @@ const NavBar = () => {
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box
-            component="a"
-            href="#"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
           >
             <Link to="/" style={{ textDecoration: "none" }}>
               <Typography
