@@ -52,6 +52,25 @@
 
 ---
 
+## 📸 Screenshots
+
+
+| ![Home Page](src/assets/screenshots/login.png) | ![Home Page](src/assets/screenshots/header.png) |
+|-------------------------------------------------------|----------------------------------------------------------|
+
+
+| ![Trending](src/assets/screenshots/trending.png) | ![top rated](src/assets/screenshots/topratedMovie.png) |
+|-------------------------------------------------------------|----------------------------------------------------------|
+
+
+| ![Search](src/assets/screenshots/search.png) | ![Movie Details](src/assets/screenshots/MoviDetails.png) |
+|-------------------------------------------------------------|------------------------------------------------------------|
+
+
+| ![Favorites](src/assets/screenshots/favouriteMovie.png) | ![lightmode](src/assets/screenshots/lightMode.png) |
+|-------------------------------------------------------------|----------------------------------------------------------|
+
+
 ## ⚙️ Installation & Setup Instructions
 
 ### 1️⃣ Clone the Repository
