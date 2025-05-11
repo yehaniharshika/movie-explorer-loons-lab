@@ -74,13 +74,13 @@ const Header = () => {
             <Typography
               variant="h2"
               sx={{
-                fontFamily: "Montserrat, sans-serif",
+                fontFamily: '"Rowdies", serif',
                 textShadow: "2px 2px 3px rgb(185, 16, 16)",
-                fontSize: { xs: "2.1rem", sm: "3rem", md: "2.7rem" }, // Responsive font size
-                fontWeight: "800",
+                fontSize: { xs: "2.1rem", sm: "2.8rem", md: "3rem" }, // Responsive font size
+                fontWeight: "600",
               }}
             >
-              Welcome to Our Movie Showcase
+              WELCOME TO OUR MOVIE SHOWCASE
             </Typography>
 
             <Typography

@@ -67,7 +67,7 @@
 |-------------------------------------------------------------|------------------------------------------------------------|
 
 
-| ![Favorites](src/assets/screenshots/favouriteMovie.png) | ![lightmode](src/assets/screenshots/lightMode.png) |
+| ![Favorites](src/assets/screenshots/favouriteMovie.png) | ![light mode](src/assets/screenshots/lightMode.png) |
 |-------------------------------------------------------------|----------------------------------------------------------|
 
 

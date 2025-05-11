@@ -2,6 +2,8 @@ import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MovieListTop from "../MovieList/MovieListTop";
+import type { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 interface Movie {
   id: number;
@@ -16,6 +18,7 @@ const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
 const TopRatedMovies: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(4); // Initially show only 2 movies
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
   useEffect(() => {
     axios
@@ -66,7 +69,7 @@ const TopRatedMovies: React.FC = () => {
             mb: 3,
             fontFamily: "Montserrat, sans-serif",
             fontWeight: "900",
-            color: "white",
+            color: isDarkMode ? "#ffffff" : "#1C1C1E",
           }}
         >
           Top Rated Movies

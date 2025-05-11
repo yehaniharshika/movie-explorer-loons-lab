@@ -1,57 +1,66 @@
-import { Container, Typography, Box, Chip, Button } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  Chip,
+  Button,
+  useTheme,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import type { RootState } from "../../store/store";
 
 const MovieDetails = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState<any>(null);
   const [trailer, setTrailer] = useState<any>(null);
   const [cast, setCast] = useState<any[]>([]);
   const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  const theme = useTheme();
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        // Fetch movie details
         const movieResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
         );
         setMovie(movieResponse.data);
 
-        // Fetch movie credits (cast)
         const creditsResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`
         );
-        setCast(creditsResponse.data.cast); 
+        setCast(creditsResponse.data.cast);
 
-        // Fetch the videos (trailers)
         const videoResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
         );
-
-        // Find the trailer if available
         const trailerData = videoResponse.data.results.find(
           (video: any) => video.type === "Trailer"
         );
-        setTrailer(trailerData); 
+        setTrailer(trailerData);
       } catch (error) {
         console.error("Failed to fetch movie details:", error);
       }
     };
 
-    fetchMovieDetails(); // Fetch movie details when component mounts
+    fetchMovieDetails();
   }, [id]);
 
-  if (!movie) return <Typography>Loading...</Typography>; // Loading state
+  if (!movie) return <Typography>Loading...</Typography>;
 
-  const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`; // Construct poster URL
+  const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   return (
-    <Container sx={{ py: 4 }} style={{ marginTop: "130px", boxShadow: "2" }}>
+    <Container
+      sx={{ py: 4, mt: "130px" }}
+      style={{}}
+    >
       <Box display="flex" flexDirection={{ xs: "column", md: "row" }} gap={4}>
-        {/* Poster Section */}
+        {/* Poster */}
         <Box
           component="img"
           src={posterUrl}
@@ -63,22 +72,27 @@ const MovieDetails = () => {
           }}
         />
 
-        {/* Info Section */}
+        {/* Info */}
         <Box flex={1}>
           <Typography
             variant="h4"
             fontWeight={700}
             gutterBottom
-            style={{ fontFamily: "Montserrat, sans-serif", color: "white" }}
+            sx={{
+              fontFamily: "Montserrat, sans-serif",
+              color: isDarkMode ? "#ffffff" : "#1C1C1E",
+            }}
           >
             {movie.title}
           </Typography>
 
           <Typography
             variant="subtitle1"
-            color="textSecondary"
             gutterBottom
-            style={{ fontFamily: "Montserrat, sans-serif", color: "white" }}
+            sx={{
+              fontFamily: "Montserrat, sans-serif",
+              color: isDarkMode ? "#ffffff" : "#1C1C1E",
+            }}
           >
             ⭐ {movie.vote_average} | 📅 {movie.release_date}
           </Typography>
@@ -88,9 +102,9 @@ const MovieDetails = () => {
               <Chip
                 key={genre.id}
                 label={genre.name}
-                style={{
+                sx={{
                   fontFamily: "Montserrat, sans-serif",
-                  color: "white",
+                  color: "#fff",
                   backgroundColor: "#c23616",
                 }}
               />
@@ -100,19 +114,27 @@ const MovieDetails = () => {
           <Typography
             variant="body1"
             mb={3}
-            style={{ fontFamily: "Montserrat, sans-serif", color: "white" }}
+            sx={{
+              fontFamily: "Montserrat, sans-serif",
+              color: isDarkMode ? "#ffffff" : "#1C1C1E",
+            }}
           >
             {movie.overview}
           </Typography>
 
-          {/* Trailer Section */}
           {trailer && (
             <Button
               variant="contained"
-              color="error"
               href={`https://www.youtube.com/watch?v=${trailer.key}`}
               target="_blank"
-              style={{ color: "white" ,backgroundColor:"#6D214F",fontFamily: "Montserrat, sans-serif"}}
+              sx={{
+                color: "#fff",
+                backgroundColor: "#6D214F",
+                fontFamily: "Montserrat, sans-serif",
+                "&:hover": {
+                  backgroundColor: "#8e3a66",
+                },
+              }}
             >
               🎬 Watch Trailer
             </Button>
@@ -120,18 +142,24 @@ const MovieDetails = () => {
         </Box>
       </Box>
 
-      {/* Cast Section */}
+      {/* Cast */}
       <Box mt={5}>
         <Typography
           variant="h6"
           gutterBottom
-          style={{ fontFamily: "Montserrat, sans-serif", color: "white" }}
+          sx={{
+            fontFamily: "Montserrat, sans-serif",
+            color: isDarkMode ? "#ffffff" : "#1C1C1E",
+          }}
         >
           Top Cast
         </Typography>
         <Box display="flex" flexWrap="wrap" gap={2}>
           {cast.length === 0 ? (
-            <Typography variant="body2" style={{ color: "white" }}>
+            <Typography
+              variant="body2"
+              sx={{ color: "gray"}}
+            >
               No cast information available.
             </Typography>
           ) : (
@@ -142,7 +170,7 @@ const MovieDetails = () => {
                   src={
                     actor.profile_path
                       ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
-                      : "/default-profile.png" // Fallback image for missing profile picture
+                      : "/default-profile.png"
                   }
                   alt={actor.name}
                   sx={{ width: "100%", borderRadius: 1 }}
@@ -150,7 +178,10 @@ const MovieDetails = () => {
                 <Typography
                   variant="body2"
                   mt={1}
-                  style={{ fontFamily: "Montserrat, sans-serif", color: "white" }}
+                  sx={{
+                    fontFamily: "Montserrat, sans-serif",
+                    color: isDarkMode ? "#ffffff" : "#1C1C1E",
+                  }}
                 >
                   {actor.name}
                 </Typography>

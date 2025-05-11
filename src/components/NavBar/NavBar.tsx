@@ -22,28 +22,22 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom";
 import LoginPopup from "../LoginPopup/LoginPopup";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../../store/store";
+import { toggleTheme } from "../../slices/themeSlice";
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
   const isTablet = useMediaQuery("(max-width: 960px)");
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-
-  useEffect(() => {
-    document.body.style.backgroundColor = darkMode ? "#000" : "#fff";
-    document.body.style.color = darkMode ? "#fff" : "#000";
-  }, [darkMode]);
-
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  };
+  const dispatch = useDispatch();
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
   const navItems = [
     { id: "home", label: "Home" },
@@ -92,9 +86,11 @@ const NavBar = () => {
         position="fixed"
         elevation={isScrolled ? 4 : 0}
         sx={{
-          backgroundColor: "#1C1C1E",
+          backgroundColor: isDarkMode ? "#1C1C1E" : "#ffffff",
           transition: "all 0.3s ease",
-          borderBottom: isScrolled ? "1px solid #2C2C2E" : "none",
+          borderBottom: isScrolled
+            ? `1px solid ${isDarkMode ? "#2C2C2E" : "#ccc"}`
+            : "none",
           width: "100%",
         }}
       >
@@ -112,7 +108,7 @@ const NavBar = () => {
                   fontFamily: "'Lilita One', sans-serif",
                   fontSize: "21px",
                   fontWeight: 400,
-                  color: "white",
+                  color: isDarkMode ? "white" : "#1C1C1E",
                   "&:hover": { color: "red" },
                 }}
               >
@@ -122,14 +118,13 @@ const NavBar = () => {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            {/* Only show nav items if screen is larger than tablet */}
             {!isTablet &&
               navItems.map((item) => (
                 <Typography
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   sx={{
-                    color: "#E5E5E5",
+                    color: isDarkMode ? "#E5E5E5" : "#1C1C1E",
                     fontFamily: "Montserrat, sans-serif",
                     fontWeight: 600,
                     cursor: "pointer",
@@ -140,10 +135,9 @@ const NavBar = () => {
                 </Typography>
               ))}
 
-            {/* These icons always visible even on tablets */}
             <IconButton
-              onClick={toggleDarkMode}
-              sx={{ color: darkMode ? "#000" : "#fff" }}
+              onClick={() => dispatch(toggleTheme())}
+              sx={{ color: isDarkMode ? "#fff" : "#000" }}
             >
               <BedtimeIcon />
             </IconButton>
@@ -152,7 +146,7 @@ const NavBar = () => {
               color="inherit"
               component={Link}
               to="/favorite-movies"
-              sx={{ color: "#fff" }}
+              sx={{ color: isDarkMode ? "#fff" : "#1C1C1E" }}
             >
               <FavoriteIcon />
             </IconButton>
@@ -162,7 +156,7 @@ const NavBar = () => {
                 <IconButton
                   color="inherit"
                   onClick={(e) => setAnchorEl(e.currentTarget)}
-                  sx={{ color: "#fff" }}
+                  sx={{ color: isDarkMode ? "#fff" : "#1C1C1E" }}
                 >
                   <AccountCircle />
                 </IconButton>
@@ -183,13 +177,16 @@ const NavBar = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  color: "white",
-                  borderColor: "white",
+                  color: isDarkMode ? "white" : "#1C1C1E",
+                  borderColor: isDarkMode ? "white" : "#1C1C1E",
                   fontSize: "12px",
                   fontWeight: 500,
                   fontFamily: "Montserrat, sans-serif",
                   padding: "6px 12px",
-                  "&:hover": { borderColor: "red", color: "red" },
+                  "&:hover": {
+                    borderColor: "red",
+                    color: "red",
+                  },
                 }}
                 onClick={() => setOpenLoginPopup(true)}
               >
@@ -197,7 +194,6 @@ const NavBar = () => {
               </Button>
             )}
 
-            {/* Always show Menu icon on mobile/tablet */}
             {isTablet && (
               <IconButton
                 edge="end"
@@ -208,9 +204,9 @@ const NavBar = () => {
                 }}
               >
                 {isDrawerOpen ? (
-                  <CloseIcon sx={{ color: "#E5E5E5" }} />
+                  <CloseIcon sx={{ color: isDarkMode ? "#E5E5E5" : "#1C1C1E" }} />
                 ) : (
-                  <MenuIcon sx={{ color: "#E5E5E5" }} />
+                  <MenuIcon sx={{ color: isDarkMode ? "#E5E5E5" : "#1C1C1E" }} />
                 )}
               </IconButton>
             )}
@@ -218,7 +214,6 @@ const NavBar = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer for Mobile/Tablets */}
       <Drawer
         anchor="top"
         open={isDrawerOpen}
@@ -226,10 +221,10 @@ const NavBar = () => {
         ref={drawerRef}
         PaperProps={{
           sx: {
-            backgroundColor: "#1C1C1E",
+            backgroundColor: isDarkMode ? "#1C1C1E" : "#ffffff",
             paddingTop: 2,
             paddingBottom: 2,
-            borderTop: "1px solid #2C2C2E",
+            borderTop: `1px solid ${isDarkMode ? "#2C2C2E" : "#ccc"}`,
             width: "100%",
             fontFamily: "Montserrat, sans-serif",
           },
@@ -241,7 +236,7 @@ const NavBar = () => {
               key={item.id}
               onClick={() => scrollToSection(item.id)}
               sx={{
-                color: "#E5E5E5",
+                color: isDarkMode ? "#E5E5E5" : "#1C1C1E",
                 fontFamily: "Montserrat, sans-serif",
                 fontWeight: "bold",
                 "&:hover": {

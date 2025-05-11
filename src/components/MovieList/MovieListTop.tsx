@@ -3,6 +3,8 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useRef } from "react";
 import MovieCardTop from "../MovieCard/MovieCardTop";
+import type { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 interface Movie {
   id: number;
@@ -13,7 +15,7 @@ interface Movie {
 }
 const MovieListTop:  React.FC<{ movies: Movie[] }>  = ({movies}) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-
+    const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
     const scrollLeft = () => {
       if (scrollContainerRef.current) {
         scrollContainerRef.current.scrollBy({ left: -400, behavior: "smooth" });
@@ -27,7 +29,7 @@ const MovieListTop:  React.FC<{ movies: Movie[] }>  = ({movies}) => {
     };
   
     return (
-      <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
+      <Box sx={{ position: "relative", width: "100%", overflow: "hidden" ,backgroundColor: isDarkMode ? "#1C1C1E" : "#ffffff",}}>
         {/* Scroll Container */}
         <Box
           ref={scrollContainerRef}

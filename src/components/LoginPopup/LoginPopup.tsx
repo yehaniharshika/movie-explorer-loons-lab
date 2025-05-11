@@ -22,7 +22,7 @@ const LoginPopup: React.FC<LoginPopupProps> = ({
   const [currState, setCurrState] = useState<"Login" | "Sign Up">("Login");
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState("");
-
+  
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setData((prevData) => ({ ...prevData, [name]: value }));

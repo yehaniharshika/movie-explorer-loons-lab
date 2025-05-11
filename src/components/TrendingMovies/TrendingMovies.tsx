@@ -2,6 +2,8 @@ import { Box, Typography, Button } from "@mui/material";
 import MovieList from "../MovieList/MovieList";
 import { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
+import type { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 interface Movie {
   id: number;
@@ -17,7 +19,7 @@ interface TrendingMoviesProps {
 const TrendingMovies: React.FC<TrendingMoviesProps> = ({ movies }) => {
   const [query, setQuery] = useState("");
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(10); // Initially show 10 movies
-
+   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   // Filter movies based on the query
   const filteredMovies =
     query.trim() === ""
@@ -71,7 +73,7 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({ movies }) => {
             mb: 3,
             fontFamily: "Montserrat, sans-serif",
             fontWeight: "900",
-            color: "white",
+            color: isDarkMode ? "#ffffff" : "#1C1C1E",
           }}
         >
           Trending Movies

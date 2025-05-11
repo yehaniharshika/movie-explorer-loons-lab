@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Typography, Box, Card } from "@mui/material";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import type { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 interface Movie {
   id: number;
@@ -11,7 +13,8 @@ interface Movie {
 
 const FavoriteMovies = () => {
   const [favorites, setFavorites] = useState<Movie[]>([]);
-
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  
   useEffect(() => {
     const items: Movie[] = [];
     for (const key in localStorage) {
@@ -31,7 +34,7 @@ const FavoriteMovies = () => {
         variant="h4"
         sx={{
           fontFamily: "Montserrat, sans-serif",
-          color: "white",
+          color: isDarkMode ? "#ffffff" : "#1C1C1E",
           textAlign: "center",
           marginTop: "80px",
           fontWeight:"bold"
