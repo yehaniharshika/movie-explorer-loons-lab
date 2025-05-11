@@ -50,7 +50,7 @@
 - **Axios** – For API communication  
 - **Material UI (MUI)** – UI styling and components  
 - **TMDb API** – Movie data, search, and trending  
-- **Vercel / Netlify** – App deployment  
+- **Vercel** – App deployment  
 
 ---
 
