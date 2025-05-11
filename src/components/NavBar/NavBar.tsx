@@ -10,7 +10,6 @@ import {
   ListItemButton,
   ListItemText,
   useMediaQuery,
-  useTheme,
   Button,
   MenuItem,
   Menu,
@@ -33,7 +32,6 @@ const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [openLoginPopup, setOpenLoginPopup] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
-  const theme = useTheme();
   const isTablet = useMediaQuery("(max-width: 960px)");
   const navigate = useNavigate();
   const dispatch = useDispatch();
