@@ -29,7 +29,7 @@ const MovieListTop:  React.FC<{ movies: Movie[] }>  = ({movies}) => {
     };
   
     return (
-      <Box sx={{ position: "relative", width: "100%", overflow: "hidden" ,backgroundColor: isDarkMode ? "#1C1C1E" : "#ffffff",}}>
+      <Box sx={{ position: "relative", width: "100%", overflow: "hidden"}}>
         {/* Scroll Container */}
         <Box
           ref={scrollContainerRef}

@@ -17,7 +17,7 @@ const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const TopRatedMovies: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [visibleMoviesCount, setVisibleMoviesCount] = useState(4); // Initially show only 2 movies
+  const [visibleMoviesCount, setVisibleMoviesCount] = useState(6); // Initially show only 2 movies
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
   useEffect(() => {

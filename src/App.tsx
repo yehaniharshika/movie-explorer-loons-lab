@@ -32,8 +32,9 @@ const AppContent = () => {
             <Route path="/movie-details/:id" element={<MovieDetails />} />
           </Routes>
         </main>
+        <Footer />
       </div>
-      <Footer />
+    
     </>
   );
 };

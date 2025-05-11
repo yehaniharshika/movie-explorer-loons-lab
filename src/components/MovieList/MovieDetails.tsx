@@ -18,9 +18,8 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState<any>(null);
   const [trailer, setTrailer] = useState<any>(null);
   const [cast, setCast] = useState<any[]>([]);
-  const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-  const theme = useTheme();
 
   useEffect(() => {
     const fetchMovieDetails = async () => {

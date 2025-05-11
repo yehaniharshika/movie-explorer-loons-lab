@@ -10,6 +10,7 @@ interface Movie {
   id: number;
   title: string;
   poster_path: string;
+  overview: string;
   vote_average: number;
 }
 
@@ -23,6 +24,7 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({  }) => {
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const API_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
+  
   const [movies, setMovies] = useState<Movie[]>([]);
 
   const fetchMovies = async () => {
@@ -51,10 +53,9 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({  }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Optional: trigger more logic here if needed
   };
 
-  // Determine if there are more movies to load
+
   const hasMoreMovies = filteredMovies.length > visibleMoviesCount;
 
   return (
@@ -75,7 +76,7 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({  }) => {
           p: 2,
         }}
       >
-        {/* SearchBar gets query, setQuery, handleSubmit */}
+        
         <SearchBar
           query={query}
           setQuery={setQuery}
