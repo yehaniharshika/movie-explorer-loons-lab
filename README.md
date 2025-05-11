@@ -1,7 +1,7 @@
 # 🎬 MovieHunt - Movie Explorer
 
 **Live Demo:** [moviehunt](https://moviehunt-eight.vercel.app/)  
-**GitLab Repo:** [github link](https://github.com/yehaniharshika/movie-explorer-loons-lab.git)
+**GitHub Repo:** [github link](https://github.com/yehaniharshika/movie-explorer-loons-lab.git)
 
 ---
 
