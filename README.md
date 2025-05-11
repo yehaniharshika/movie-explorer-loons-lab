@@ -92,6 +92,7 @@
 | ![Movie detail white](src/assets/screenshots/movieDetailsWhite.png) | ![notification](src/assets/screenshots/notification.png) |
 |-------------------------------------------------------------|----------------------------------------------------------|
 
+---
 
 ## ⚙️ Installation & Setup Instructions
 
@@ -110,3 +111,9 @@ npm install
 npm run dev
 ```
 
+---
+
+## 🪪 License
+© 2025 All Right Reserved Created By Yehani Harshika
+<br/>
+This project is licensed under the [MIT](License.txt) license
