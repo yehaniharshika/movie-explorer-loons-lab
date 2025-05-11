@@ -32,7 +32,7 @@
 ### User Experience
 - Light/Dark mode toggle for theme switching.
 - Handles API errors and empty results with user-friendly messages.
-- Mobile-first responsive UI.
+- Mobile-first responsive UI and Responsive Design for All Devices.
 - Smooth page navigation using React Router.
 - Includes a "Load More" button to progressively display additional movies.
 
