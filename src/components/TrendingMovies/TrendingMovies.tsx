@@ -5,82 +5,113 @@ import SearchBar from "../SearchBar/SearchBar";
 import type { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import FilterBar from "../FilterBar/FilterBar";
 
 interface Movie {
   id: number;
   title: string;
   poster_path: string;
-  overview: string;
   vote_average: number;
+  release_year: string;
+  genre: string;
 }
 
-interface TrendingMoviesProps {
-  movies: Movie[];
-}
-
-const TrendingMovies: React.FC<TrendingMoviesProps> = ({  }) => {
+const TrendingMovies: React.FC = () => {
   const [query, setQuery] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedRating, setSelectedRating] = useState("");
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(10);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [genres, setGenres] = useState<{ [id: number]: string }>({});
+
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const API_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
-  
-  const [movies, setMovies] = useState<Movie[]>([]);
+
+  // Fetch genres separately
+  const fetchGenres = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`
+      );
+      const genreMap: { [id: number]: string } = {};
+      res.data.genres.forEach((genre: any) => {
+        genreMap[genre.id] = genre.name;
+      });
+      setGenres(genreMap);
+    } catch (error) {
+      console.error("Failed to fetch genres", error);
+    }
+  };
 
   const fetchMovies = async () => {
     try {
       const response = await axios.get(API_URL);
-      setMovies(response.data.results);
+      const rawMovies = response.data.results;
+
+      const mappedMovies: Movie[] = rawMovies.map((movie: any) => ({
+        id: movie.id,
+        title: movie.title,
+        poster_path: movie.poster_path,
+        vote_average: movie.vote_average,
+        release_year: movie.release_date?.split("-")[0] || "",
+        genre: genres[movie.genre_ids[0]] || "Unknown", // take first genre ID
+      }));
+
+      setMovies(mappedMovies);
     } catch (error) {
       console.error("Failed to fetch movies", error);
     }
   };
 
   useEffect(() => {
-    fetchMovies();
+    fetchGenres();
   }, []);
 
-  const filteredMovies =
-    query.trim() === ""
-      ? movies
-      : movies.filter((movie) =>
-          movie.title.toLowerCase().includes(query.toLowerCase())
-        );
+  useEffect(() => {
+    if (Object.keys(genres).length > 0) {
+      fetchMovies();
+    }
+  }, [genres]);
+
+  const filteredMovies = movies.filter((movie) => {
+    const matchesQuery =
+      query.trim() === "" || movie.title.toLowerCase().includes(query.toLowerCase());
+    const matchesGenre =
+      selectedGenre === "" || movie.genre.toLowerCase() === selectedGenre.toLowerCase();
+    const matchesYear =
+      selectedYear === "" || movie.release_year === selectedYear;
+    const matchesRating =
+      selectedRating === "" || movie.vote_average >= parseFloat(selectedRating);
+
+    return matchesQuery && matchesGenre && matchesYear && matchesRating;
+  });
 
   const handleLoadMore = () => {
-    setVisibleMoviesCount((prevCount) => prevCount + 10); // Increase the number of visible movies by 10
+    setVisibleMoviesCount((prev) => prev + 10);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
-
   const hasMoreMovies = filteredMovies.length > visibleMoviesCount;
 
   return (
-    <Box
-      sx={{
-        padding: 2,
-        display: "flex",
-        justifyContent: "center",
-        overflowX: "hidden",
-        marginTop: "10px",
-      }}
-      id="movies"
-    >
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: "1700px",
-          p: 2,
-        }}
-      >
-        
-        <SearchBar
-          query={query}
-          setQuery={setQuery}
-          handleSubmit={handleSubmit}
+    <Box sx={{ padding: 2, display: "flex", justifyContent: "center", overflowX: "hidden", marginTop: "10px" }} id="movies">
+      <Box sx={{ width: "100%", maxWidth: "1700px", p: 2 }}>
+        {/* Search Bar */}
+        <SearchBar query={query} setQuery={setQuery} handleSubmit={handleSubmit} />
+
+        {/* Filter Bar */}
+        <FilterBar
+          selectedGenre={selectedGenre}
+          selectedYear={selectedYear}
+          selectedRating={selectedRating}
+          setSelectedGenre={setSelectedGenre}
+          setSelectedYear={setSelectedYear}
+          setSelectedRating={setSelectedRating}
         />
 
         <Typography
@@ -97,11 +128,9 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({  }) => {
         </Typography>
 
         <Box mt={3}>
-          {/* Pass the filtered and sliced list of movies */}
           <MovieList movies={filteredMovies.slice(0, visibleMoviesCount)} />
         </Box>
 
-        {/* Show "Load More" button if there are more movies to display */}
         {hasMoreMovies && (
           <Box sx={{ textAlign: "center", mt: 3 }}>
             <Button
@@ -117,8 +146,8 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({  }) => {
                 fontSize: "12px",
                 boxShadow: "0 4px 6px rgba(86, 21, 21, 0.91)",
                 "&:hover": {
-                  backgroundColor: "darkred", // Dark red on hover
-                  boxShadow: "0 6px 8px rgba(0, 0, 0, 0.3)", // Slightly darker shadow on hover
+                  backgroundColor: "darkred",
+                  boxShadow: "0 6px 8px rgba(0, 0, 0, 0.3)",
                 },
               }}
             >

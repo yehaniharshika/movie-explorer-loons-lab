@@ -1,6 +1,8 @@
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, TextField, InputAdornment, Button } from "@mui/material";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
 interface SearchBarProps {
   query: string;
@@ -13,6 +15,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   setQuery,
   handleSubmit,
 }) => {
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+
   return (
     <Box
       component="form"
@@ -29,9 +33,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
         px: { xs: 1, sm: 2 },
         py: { xs: 1.5, sm: 2 },
         gap: { xs: 1.5, sm: 2 },
-        backgroundColor: "#121212",
-        borderRadius: 2,
-        boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
       }}
     >
       <TextField
@@ -43,24 +44,27 @@ const SearchBar: React.FC<SearchBarProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon sx={{ color: "#ffffffcc" }} />
+              <SearchIcon
+                sx={{ color: isDarkMode ? "#ffffffcc" : "#000000" }}
+              />
             </InputAdornment>
           ),
         }}
         sx={{
           input: {
-            color: "#ffffff",
+            color: isDarkMode ? "#ffffff" : "#000000", // black text in light mode
             fontSize: {
-              xs: "0.85rem",
+              xs: "0.75rem",
               sm: "0.95rem",
               md: "1rem",
             },
+            backgroundColor: isDarkMode ? "#000000" : "#ffffff", // white bg in light mode
           },
           "& .MuiOutlinedInput-root": {
             fontFamily: "Montserrat, sans-serif",
-            backgroundColor: "#1e1e1e",
+            backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff", // light mode white field
             "& fieldset": {
-              borderColor: "#555",
+              borderColor: isDarkMode ? "#888888" : "#000000", // black border in light mode
             },
             "&:hover fieldset": {
               borderColor: "#c23616",
@@ -71,7 +75,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             },
           },
           "& .MuiInputBase-input::placeholder": {
-            color: "#bbbbbb",
+            color: isDarkMode ? "#bbbbbb" : "#888888",
             fontFamily: "Montserrat, sans-serif",
             fontSize: {
               xs: "0.8rem",

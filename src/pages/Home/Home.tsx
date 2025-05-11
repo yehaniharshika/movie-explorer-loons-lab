@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import Header from "../../components/Header/Header";
-
 import TrendingMovies from "../../components/TrendingMovies/TrendingMovies";
-import axios from "axios";
 import TopRatedMovies from "../../components/TopRatedMovie/TopRatedMovie";
 
 interface Movie {
@@ -19,7 +17,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <TrendingMovies movies={movies} />
+      <TrendingMovies/>
       <TopRatedMovies />
     </div>
   );
