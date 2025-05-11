@@ -52,17 +52,17 @@ const SearchBar: React.FC<SearchBarProps> = ({
         }}
         sx={{
           input: {
-            color: isDarkMode ? "#ffffff" : "#000000", // black text in light mode
+            color: isDarkMode ? "#ffffff" : "#000000",
             fontSize: {
               xs: "0.75rem",
               sm: "0.95rem",
               md: "1rem",
             },
-            backgroundColor: isDarkMode ? "#000000" : "#ffffff", // white bg in light mode
+            backgroundColor: isDarkMode ? "#000000" : "#ffffff",
           },
           "& .MuiOutlinedInput-root": {
             fontFamily: "Montserrat, sans-serif",
-            backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff", // light mode white field
+            backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
             "& fieldset": {
               borderColor: isDarkMode ? "#888888" : "#000000", // black border in light mode
             },

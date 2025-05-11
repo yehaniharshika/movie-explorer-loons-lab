@@ -56,7 +56,7 @@ const TrendingMovies: React.FC = () => {
         poster_path: movie.poster_path,
         vote_average: movie.vote_average,
         release_year: movie.release_date?.split("-")[0] || "",
-        genre: genres[movie.genre_ids[0]] || "Unknown", // take first genre ID
+        genre: genres[movie.genre_ids[0]] || "Unknown",
       }));
 
       setMovies(mappedMovies);
@@ -80,8 +80,7 @@ const TrendingMovies: React.FC = () => {
       query.trim() === "" || movie.title.toLowerCase().includes(query.toLowerCase());
     const matchesGenre =
       selectedGenre === "" || movie.genre.toLowerCase() === selectedGenre.toLowerCase();
-    const matchesYear =
-      selectedYear === "" || movie.release_year === selectedYear;
+    const matchesYear = selectedYear === "" || movie.release_year === selectedYear;
     const matchesRating =
       selectedRating === "" || movie.vote_average >= parseFloat(selectedRating);
 
@@ -99,7 +98,16 @@ const TrendingMovies: React.FC = () => {
   const hasMoreMovies = filteredMovies.length > visibleMoviesCount;
 
   return (
-    <Box sx={{ padding: 2, display: "flex", justifyContent: "center", overflowX: "hidden", marginTop: "10px" }} id="movies">
+    <Box
+      sx={{
+        padding: 2,
+        display: "flex",
+        justifyContent: "center",
+        overflowX: "hidden",
+        marginTop: "10px",
+      }}
+      id="movies"
+    >
       <Box sx={{ width: "100%", maxWidth: "1700px", p: 2 }}>
         {/* Search Bar */}
         <SearchBar query={query} setQuery={setQuery} handleSubmit={handleSubmit} />
@@ -127,11 +135,29 @@ const TrendingMovies: React.FC = () => {
           Trending Movies
         </Typography>
 
-        <Box mt={3}>
-          <MovieList movies={filteredMovies.slice(0, visibleMoviesCount)} />
+        <Box
+          mt={3}
+          sx={{
+            minHeight: "400px",
+            display: "flex",
+            justifyContent: filteredMovies.length === 0 ? "center" : "flex-start",
+            alignItems: filteredMovies.length === 0 ? "center" : "initial",
+            flexWrap: "wrap",
+          }}
+        >
+          {filteredMovies.length > 0 ? (
+            <MovieList movies={filteredMovies.slice(0, visibleMoviesCount)} />
+          ) : (
+            <Typography
+              color="textSecondary"
+              sx={{ fontFamily: "Montserrat, sans-serif", fontWeight: 500 ,color:"gray",fontSize:"14px"}}
+            >
+              No movies found with the selected filters.
+            </Typography>
+          )}
         </Box>
 
-        {hasMoreMovies && (
+        {hasMoreMovies && filteredMovies.length > 0 && (
           <Box sx={{ textAlign: "center", mt: 3 }}>
             <Button
               variant="contained"

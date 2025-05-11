@@ -168,6 +168,8 @@ const FilterBar: React.FC<FilterBarProps> = ({
           <MenuItem sx={{ fontFamily: "Montserrat, sans-serif", fontSize: { xs: "0.8rem", sm: "1rem" } }} value="8">8+</MenuItem>
           <MenuItem sx={{ fontFamily: "Montserrat, sans-serif", fontSize: { xs: "0.8rem", sm: "1rem" } }} value="7">7+</MenuItem>
           <MenuItem sx={{ fontFamily: "Montserrat, sans-serif", fontSize: { xs: "0.8rem", sm: "1rem" } }} value="6">6+</MenuItem>
+          <MenuItem sx={{ fontFamily: "Montserrat, sans-serif", fontSize: { xs: "0.8rem", sm: "1rem" } }} value="6">5+</MenuItem>
+          <MenuItem sx={{ fontFamily: "Montserrat, sans-serif", fontSize: { xs: "0.8rem", sm: "1rem" } }} value="6">4+</MenuItem>
         </Select>
       </FormControl>
     </Box>
