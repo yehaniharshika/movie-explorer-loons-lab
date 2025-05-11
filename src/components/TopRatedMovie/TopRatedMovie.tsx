@@ -13,7 +13,7 @@ interface Movie {
   release_year: string;
 }
 
-const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const TopRatedMovies: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);

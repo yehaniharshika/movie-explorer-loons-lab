@@ -1,9 +1,10 @@
 import { Box, Typography, Button } from "@mui/material";
 import MovieList from "../MovieList/MovieList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import type { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 interface Movie {
   id: number;
@@ -16,11 +17,27 @@ interface TrendingMoviesProps {
   movies: Movie[];
 }
 
-const TrendingMovies: React.FC<TrendingMoviesProps> = ({ movies }) => {
+const TrendingMovies: React.FC<TrendingMoviesProps> = ({  }) => {
   const [query, setQuery] = useState("");
-  const [visibleMoviesCount, setVisibleMoviesCount] = useState(10); // Initially show 10 movies
-   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-  // Filter movies based on the query
+  const [visibleMoviesCount, setVisibleMoviesCount] = useState(10);
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+  const API_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  const fetchMovies = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setMovies(response.data.results);
+    } catch (error) {
+      console.error("Failed to fetch movies", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
   const filteredMovies =
     query.trim() === ""
       ? movies
@@ -28,7 +45,6 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({ movies }) => {
           movie.title.toLowerCase().includes(query.toLowerCase())
         );
 
-  
   const handleLoadMore = () => {
     setVisibleMoviesCount((prevCount) => prevCount + 10); // Increase the number of visible movies by 10
   };
@@ -97,7 +113,7 @@ const TrendingMovies: React.FC<TrendingMoviesProps> = ({ movies }) => {
                 border: "2px solid red",
                 fontFamily: "Montserrat, sans-serif",
                 fontWeight: "700",
-                fontSize:"12px",
+                fontSize: "12px",
                 boxShadow: "0 4px 6px rgba(86, 21, 21, 0.91)",
                 "&:hover": {
                   backgroundColor: "darkred", // Dark red on hover

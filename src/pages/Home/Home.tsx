@@ -19,19 +19,7 @@ const Home = () => {
   const API_KEY = "b855d823ec03963ae765a4c4fce6e7d8";
   const API_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
 
-  const fetchMovies = async () => {
-    try {
-      const response = await axios.get(API_URL);
-      setMovies(response.data.results);
-    } catch (error) {
-      console.error("Failed to fetch movies", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-
+  
   return (
     <div>
       <Header />
